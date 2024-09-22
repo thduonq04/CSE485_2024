@@ -10,6 +10,47 @@
     <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
+         <?php
+            include '../conn.php';
+
+            $ma_tloai = isset($_GET['id']) ? $_GET['id'] : null;
+            $sql="SELECT * FROM theloai WHERE ma_tloai=$ma_tloai";
+            $result = $conn->query($sql);
+            
+
+            // Kiểm tra nếu có dữ liệu
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $ten_tloai = $row['ten_tloai'];
+            } else {
+                throw new Exception("Không tìm thấy dữ liệu thể loại");
+            }
+
+            // Xử lý khi người dùng nhấn nút "Lưu lại"
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Kiểm tra xem dữ liệu được submit từ form sửa hay không
+                if (isset($_POST['txtCatName'])) {
+                    $ten_tloai_moi = $_POST['txtCatName'];
+
+                    // Thực hiện truy vấn cập nhật dữ liệu thể loại
+                    $sql_update="UPDATE theloai SET ten_tloai='$ten_tloai_moi' WHERE ma_tloai=$ma_tloai";        
+                    $result = $conn->query($sql_update);
+                    //$conn->query($sql_update);
+                   
+                    // Chuyển hướng về trang danh sách thể loại
+                    header("Location: category.php");
+                    exit;
+                }
+            }
+
+        // Đóng kết nối sau khi hoàn thành mọi thao tác
+        if (isset($db)) {
+            $db->close();
+        }
+
+?>
+
+
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
             <div class="container-fluid">
@@ -47,15 +88,15 @@
         <div class="row">
             <div class="col-sm">
                 <h3 class="text-center text-uppercase fw-bold">Sửa thông tin thể loại</h3>
-                <form action="process_add_category.php" method="post">
+                <form action="" method="post">
                 <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatId">Mã thể loại</span>
-                        <input type="text" class="form-control" name="txtCatId" readonly value="1">
+                        <input type="text" class="form-control"  name="txtCatId" readonly value="<?php echo $ma_tloai; ?>">
                     </div>
 
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatName">Tên thể loại</span>
-                        <input type="text" class="form-control" name="txtCatName" value = "Nhạc trữ tình">
+                        <input type="text" class="form-control"  name="txtCatName" value = "<?php echo $ten_tloai; ?>">
                     </div>
 
                     <div class="form-group  float-end ">
