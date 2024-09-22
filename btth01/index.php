@@ -1,3 +1,6 @@
+<?php 
+    include ("connection.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +12,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <?php 
-        include ("connection.php");
-        ?>
+   
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
             <div class="container-fluid">
@@ -72,11 +73,10 @@
         <div class="row">
 
         <?php 
-         $sql = "select * from baiviet";
-         $result = pdo($pdo, $sql);
-         if($result -> rowCount() > 0){
-             while($row = $result -> fetch(PDO::FETCH_ASSOC)) { //duyệt từng giá trị một
-            //  echo $row['tieude'];
+        $sql = "select * from baiviet";
+        $result = mysqli_query($conn, $sql);
+        $author = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        foreach ($author as $row){
          
         ?>
             <div class="col-sm-3">
@@ -89,16 +89,9 @@
                     </div>
                 </div>
             </div>
-<?php
-             }}
-
-?>
-           
-          
-
-            
-
-           
+            <?php
+                }
+            ?>    
         </div>
     </main>
     <footer class="bg-white d-flex justify-content-center align-items-center border-top border-secondary  border-2" style="height:80px">

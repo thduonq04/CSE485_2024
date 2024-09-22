@@ -76,11 +76,14 @@ require '../connection.php';
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $txtCatId = $_POST["txtCatId"];
             $txtCatName = $_POST["txtCatName"];
-            $sql = "INSERT INTO tacgia (ma_tgia, ten_tgia) VALUES (:cardid, :cardname)";
-            $stmt = pdo($pdo, $sql, ['cardid' => $txtCatId, 'cardname' => $txtCatName]);
-            if($stmt){
+            $sql = "INSERT INTO tacgia (ma_tgia, ten_tgia) VALUES ('$txtCatId', '$txtCatName')";
+            $results = mysqli_query($conn, $sql);
+            if($results){
                 echo "<script>alert('Thêm tác giả thành công');</script>";
                 echo "<script>window.location = 'author.php'</script>";
+            }
+            else {
+                echo "<script>alert('Thêm tác giả thất bại');</script>";
             }
         }
         ?>

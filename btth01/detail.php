@@ -1,6 +1,5 @@
 <?php
     include("connection.php");
-    $title = $_GET["title"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,12 +47,12 @@
       
                 <div class="row mb-5">
                 <?php
+                    $title = $_GET["title"];
                     $sql = "select hinhanh,tieude, ten_bhat, ten_tloai, tomtat, noidung, ten_tgia from baiviet join theloai on theloai.ma_tloai = baiviet.ma_tloai join tacgia on baiviet.ma_tgia = tacgia.ma_tgia where baiviet.tieude = N'".$title."'";
-                    $results = pdo($pdo, $sql);
-                    if ($results-> rowCount()> 0){
-                        while($row = $results -> fetch(PDO::FETCH_ASSOC)){
+                    $results = mysqli_query($conn, $sql);
+                    $author = mysqli_fetch_all($results, MYSQLI_ASSOC);
+                    foreach($author as $row){
 
-       
                  ?>
                     <div class="col-sm-4">
                         <img src="<?= $row['hinhanh'] ?>" class="img-fluid" alt="...">
@@ -68,11 +67,9 @@
                         <p class="card-text"><span class=" fw-bold">Nội dung: </span><?= $row["noidung"] ?></p>
                         <p class="card-text"><span class=" fw-bold">Tác giả: </span><?= $row["ten_tgia"] ?></p>
 
-                    </div>  
-
+                    </div>
                     <?php 
                         }
-                    }
                      ?>       
         </div>
     </main>

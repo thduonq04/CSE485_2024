@@ -1,3 +1,6 @@
+<?php 
+    include ("../connection.php")
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +13,7 @@
     <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
-    <?php 
-    include ("../connection.php")
-    ?>
+   
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
             <div class="container-fluid">
@@ -66,9 +67,10 @@
                     <tbody>
                         <?php
                         $sql = 'select * from tacgia limit 99999 offset 1';
-                        $result = pdo($pdo, $sql,);
-                        if ($result->rowCount() > 0) {
-                            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                        $results = mysqli_query($conn, $sql);
+                        $author = mysqli_fetch_all($results, MYSQLI_ASSOC);
+                        foreach($author as $row){
+
                         ?>
                                 <tr>
                                     <th scope="row"><?php echo $row['ma_tgia'] ?></th>
@@ -83,7 +85,7 @@
                                 </tr>
                         <?php
                             }
-                        }; ?>
+                        ; ?>
                     </tbody>
                 </table>
             </div>

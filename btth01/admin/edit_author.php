@@ -1,9 +1,19 @@
 <?php
 require '../connection.php';
-$id = $_GET["id"];
+$id = isset($_GET['id']) ? $_GET['id'] : null;
+$ten_tgia = "";
+if ($id){
+    $sql="SELECT * FROM tacgia WHERE ma_tgia=$id";
+    $result_s = mysqli_query($conn, $sql);
+    if($result_s->num_rows >0){
+        $row = $result_s->fetch_assoc();
+        $ten_tgia = $row['ten_tgia'];
+    }
+    else {
+        throw new Exception("Không tìm thấy tác giả");
+    }
+}
 
-$sql = "SELECT ten_tgia FROM tacgia WHERE ma_tgia=:id";
-$result = pdo($pdo,$sql, ['id' => $id])->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -38,10 +48,10 @@ $result = pdo($pdo,$sql, ['id' => $id])->fetch();
                             <a class="nav-link" href="../index.php">Trang ngoài</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active fw-bold" href="category.php">Thể loại</a>
+                            <a class="nav-link" href="category.php">Thể loại</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="author.php">Tác giả</a>
+                            <a class="nav-link  active fw-bold" href="author.php">Tác giả</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="article.php">Bài viết</a>
@@ -66,12 +76,12 @@ $result = pdo($pdo,$sql, ['id' => $id])->fetch();
                     <div class="input-group mt-3 mb-3">
                         
                         <span class="input-group-text" id="lblCatName">Tên tác giả</span>
-                        <input type="text" class="form-control" name="txtCatName" value="<?php echo $result['ten_tgia'] ?>">
+                        <input type="text" class="form-control" name="txtCatName" value="<?php echo $ten_tgia ?>">
                     </div>
 
                     <div class="form-group  float-end ">
                         <input type="submit" value="Lưu lại" class="btn btn-success">
-                        <a href="category.php" class="btn btn-warning ">Quay lại</a>
+                        <a href="author.php" class="btn btn-warning ">Quay lại</a>
                     </div>
                 </form>
             </div>
@@ -81,8 +91,8 @@ $result = pdo($pdo,$sql, ['id' => $id])->fetch();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $txtCatId = $_POST["txtCatId"];
             $txtCatName = $_POST["txtCatName"];
-            $sql = "Update tacgia SET ten_tgia = :txtCatName where ma_tgia = :id";
-            $update = pdo($pdo, $sql, ['id' => $txtCatId,'txtCatName' => $txtCatName ]);
+            $sql_update = "Update tacgia SET ten_tgia = '".$txtCatName."' where ma_tgia = $txtCatId";
+            $update = mysqli_query($conn, $sql_update);
             if($update){
                 echo "<script>alert('Chỉnh sửa tác giả thành công');</script>";
                 echo "<script>window.location = 'author.php'</script>";
