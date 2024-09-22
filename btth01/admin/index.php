@@ -11,7 +11,7 @@
 </head>
 <body>
 <?php
-    include '../connect.php'; // Kết nối CSDL
+    include '../connection.php'; // Kết nối CSDL
 
     // Đếm số lượng thể loại
     $sql_theloai = "SELECT COUNT(ma_tloai) AS count_theloai FROM theloai";

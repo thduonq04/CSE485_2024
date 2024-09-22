@@ -11,10 +11,9 @@
 </head>
 <body>
 <?php
-        include '../connect.php';
+        include '../connection.php';
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $ma_bviet = $_POST['ma_bviet'];
             $tieude = $_POST['tieude'];
             $ten_bhat = $_POST['ten_bhat'];
             $ma_tloai = $_POST['ma_tloai'];
@@ -23,57 +22,16 @@
             $ma_tgia = $_POST['ma_tgia'];
             $ngayviet = date('Y-m-d H:i:s');
             
-            if (isset($_FILES['hinhanh']) && $_FILES['hinhanh']['error'] == UPLOAD_ERR_OK) {
-                // Đường dẫn lưu trữ ảnh
-                $target_dir = "uploads/";
-                $target_file = $target_dir . basename($_FILES["hinhanh"]["name"]);
-                $uploadOk = 1;
-                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        
-                // Kiểm tra file có phải là ảnh không
-                $check = getimagesize($_FILES["hinhanh"]["tmp_name"]);
-                if ($check !== false) {
-                    $uploadOk = 1;
-                } else {
-                    echo "<script>alert('File không phải là ảnh.');</script>";
-                    $uploadOk = 0;
-                }
-        
-                // Kiểm tra kích thước file (giới hạn 5MB)
-                if ($_FILES["hinhanh"]["size"] > 5000000) {
-                    echo "<script>alert('File quá lớn. Giới hạn là 5MB.');</script>";
-                    $uploadOk = 0;
-                }
-        
-                // Chỉ cho phép một số định dạng ảnh
-                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-                    echo "<script>alert('Chỉ chấp nhận định dạng JPG, JPEG, PNG & GIF.');</script>";
-                    $uploadOk = 0;
-                }
-        
-                // Nếu mọi điều kiện đều đúng, tiến hành upload ảnh
-                if ($uploadOk == 1) {
-                    if (move_uploaded_file($_FILES["hinhanh"]["tmp_name"], $target_file)) {
-                        echo "File ". htmlspecialchars( basename( $_FILES["hinhanh"]["name"])). " đã được tải lên.";
-                        // Lưu tên file ảnh vào cơ sở dữ liệu
-                        $hinhanh = basename($_FILES["hinhanh"]["name"]);
-                    } else {
-                        echo "Có lỗi khi tải file.";
-                        $hinhanh = "";  // Nếu xảy ra lỗi, không lưu ảnh
-                    }
-                } else {
-                    $hinhanh = "";  // Nếu không tải được file, không lưu ảnh
-                }
-            } else {
-                //echo "Không có hình ảnh được tải lên.";
-                $hinhanh = "";  // Không có file ảnh được tải lên
-            }
+           $hinhanh = $_POST["hinhanh"];
+                
 
-            $sql = "INSERT INTO baiviet (ma_bviet, tieude, ten_bhat, ma_tloai, tomtat, noidung, ma_tgia, ngayviet, hinhanh)
-                    VALUES ('$ma_bviet', '$tieude', '$ten_bhat', '$ma_tloai', '$tomtat', '$noidung', '$ma_tgia', '$ngayviet', '$hinhanh')";
+            $sql = "INSERT INTO baiviet ( tieude, ten_bhat, ma_tloai, tomtat, noidung, ma_tgia, ngayviet, hinhanh)
+                    VALUES ('$tieude', '$ten_bhat', '$ma_tloai', '$tomtat', '$noidung', '$ma_tgia', '$ngayviet', '$hinhanh')";
 
             if ($conn->query($sql) === TRUE) {
                 echo "<script>alert('Thêm bài viết thành công!');</script>";
+                echo "<script>window.location = 'article.php'</script>";
+                
             } else {
                 echo "<script>alert('Thêm bài viết không thành công!')</script>" . $conn->error;
             }
@@ -122,10 +80,7 @@
                 <h3 class="text-center text-uppercase fw-bold">Thêm mới bài viết</h3>
                 <form action="" method="post" enctype="multipart/form-data">
                     
-                    <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="ma_bviet">Mã bài viết</span>
-                        <input type="text" class="form-control" name="ma_bviet" required>
-                    </div>
+                    
 
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="tieude">Tiêu đề</span>
@@ -165,16 +120,14 @@
                         <textarea class="form-control" id="noidung" name="noidung"></textarea>
                     </div>
 
-                    <div>
-                        <span class="input-group-text" id="hinhanh">Hình ảnh</span> <br>
-                        <input type="file" class="custom-file-input" id="hinhanh" class="form-control-file border" name="hinhanh">
+                    <div class="input-group mt-3 mb-3">
+                        <span class="input-group-text" id="ten_bhat">Hình ảnh</span>
+                        <input type="text" class="form-control" name="hinhanh">
                     </div>
-
-                    
 
                     <div class="form-group  float-end ">
                         <input type="submit" value="Thêm" class="btn btn-success">
-                        <a href="category.php" class="btn btn-warning ">Quay lại</a>
+                        <a href="article.php" class="btn btn-warning ">Quay lại</a>
                     </div>
                 </form>
             </div>

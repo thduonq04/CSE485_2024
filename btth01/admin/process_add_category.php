@@ -1,10 +1,10 @@
 <?php
-    $CatID= $_POST['txtCatID'];
+    
     $CatName= $_POST['txtCatName'];
 
-    include '../conn.php';
+    include '../connection.php';
 
-    $sql = "INSERT INTO theloai VALUES ('$CatID','$CatName')";
+    $sql = "INSERT INTO theloai (ten_tloai,SLBaiViet) VALUES ('$CatName', 0)";
     echo $sql;
     $result = mysqli_query($conn, $sql);
 

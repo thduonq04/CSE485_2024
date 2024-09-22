@@ -11,7 +11,7 @@
 </head>
 <body>
     <?php
-        include '../conn.php'; // Kết nối CSDL
+        include '../connection.php'; // Kết nối CSDL
 
         // Truy vấn lấy danh sách thể loại
         $sql = "SELECT ma_tloai, ten_tloai FROM theloai";

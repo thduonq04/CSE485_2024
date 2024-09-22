@@ -54,10 +54,6 @@ require '../connection.php';
                 <h3 class="text-center text-uppercase fw-bold">Thêm mới tác giả</h3>
                 <form action="add_author.php" method="POST">
                     <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="lblCatId">Mã tác giả</span>
-                        <input type="text" class="form-control" name="txtCatId">
-                    </div>
-                    <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatName">Tên tác giả</span>
                         <input type="text" class="form-control" name="txtCatName">
                     </div>

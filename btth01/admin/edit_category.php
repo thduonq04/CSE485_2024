@@ -11,7 +11,7 @@
 </head>
 <body>
          <?php
-            include '../conn.php';
+            include '../connection.php';
 
             $ma_tloai = isset($_GET['id']) ? $_GET['id'] : null;
             $sql="SELECT * FROM theloai WHERE ma_tloai=$ma_tloai";

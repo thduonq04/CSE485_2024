@@ -11,7 +11,7 @@
 </head>
 <body>
     <?php
-    include '../connect.php';
+    include '../connection.php';
 
     $ma_bviet = $_GET['id'];
     $sql = "SELECT * FROM baiviet WHERE ma_bviet = $ma_bviet";
@@ -180,13 +180,9 @@
                         <textarea class="form-control" id="noidung" name="noidung"><?= $article['noidung']; ?></textarea>
                     </div>
 
-                    <div>
-                        <label class="input-group-text" id="hinhanh">Hình ảnh</label> <br>
-                        <?php if (!empty($article['hinhanh'])): ?>
-                            <img src="uploads/<?= $article['hinhanh']; ?>" alt="Current Image" width="100"><br>
-                        <?php endif; ?>
-                        <br>
-                        <input type="file" id="hinhanh" class="form-control-file " name="hinhanh">
+                    <div class="input-group mt-3 mb-3">
+                        <span class="input-group-text" id="ten_bhat">Hình ảnh</span>
+                        <input type="text" class="form-control" name="hinhanh" value="<?= $article['noidung']; ?>">
                     </div>
 
                     <div class="form-group  float-end ">

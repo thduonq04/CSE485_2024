@@ -11,7 +11,7 @@
 </head>
 <body>
     <?php
-    include '../connect.php';  // File kết nối đến CSDL
+    include '../connection.php';  // File kết nối đến CSDL
 
     if (isset($_GET['delete'])) {
         $ma_bviet = $_GET['delete'];
