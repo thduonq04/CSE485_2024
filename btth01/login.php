@@ -10,6 +10,36 @@
     <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
+<?php
+        include 'conn.php';
+         if($_SERVER["REQUEST_METHOD"]=="POST"){
+            $username=$_POST['username'];
+            $password=$_POST['password'];
+        //Truy vấn theo username
+
+            $sql = "SELECT * FROM users WHERE username = ?";
+            $stmt=$conn->prepare($sql);
+            $stmt->bind_param('s',$username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if($result->num_rows>0){
+                $user = $result->fetch_assoc();
+                //So sánh mật khẩu (đã được mã hóa)
+                if($password==$user['password']){
+                    echo "<script>alert('Đăng nhập thành công')</script>";
+                    header("Location:admin");
+                }
+                else {
+                    echo "<script>alert('Sai mật khẩu')</script>";
+                }
+            }
+            else{
+                    echo "<script>alert('Không tìm thấy người dùng')</script>";
+            }
+            $stmt->close();
+        }
+        $conn->close();
+    ?>
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
             <div class="container-fluid">
@@ -52,15 +82,15 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form method ="POST" action="login.php">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="txtUser"><i class="fas fa-user"></i></span>
-                                <input type="text" class="form-control" placeholder="username" >
+                                <input type="text" name= "username" class="form-control" placeholder="username" >
                             </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="txtPass"><i class="fas fa-key"></i></span>
-                                <input type="text" class="form-control" placeholder="password" >
+                                <input type="text" name= "password" class="form-control" placeholder="password" >
                             </div>
                             
                             <div class="row align-items-center remember">

@@ -10,6 +10,17 @@
     <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
+    <?php
+        include '../conn.php'; // Kết nối CSDL
+
+        // Truy vấn lấy danh sách thể loại
+        $sql = "SELECT ma_tloai, ten_tloai FROM theloai";
+        $result = $conn->query($sql);
+        $sql = "SELECT * FROM theloai";
+        $result=mysqli_query($conn, $sql);//lưu kết quả trả về vào query
+        $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+?>
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
             <div class="container-fluid">
@@ -57,27 +68,25 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                            $index = 1;
+                            foreach($categories as $cate) {
+                        ?>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Nhạc trữ tình</td>
+                            <th scope="row"><?= $index?></th>
+                            <td><?= $cate['ten_tloai'] ?></td>
                             <td>
-                                <a href="edit_category.php?id=1"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="edit_category.php?id=<?= $cate['ma_tloai'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                             </td>
                             <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
+                                <a onclick = "return confirm('Bạn có chắc chắn muốn xóa không?');" href="delete_category.php?id=<?php echo $cate['ma_tloai'] ?>"><i class="fa-solid fa-trash"></i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Nhạc cách mạng</td>
-                            <td>
-                                <a href="edit_category.php?id=2"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
-                       
+                        <?php
+                            $index = $index+1;
+                        }
+                        ?>
+                        
                     </tbody>
                 </table>
             </div>
