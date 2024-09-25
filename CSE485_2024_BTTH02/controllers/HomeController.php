@@ -9,4 +9,5 @@ class HomeController{
         // Nhiệm vụ 2: Tương tác với View
         include("views/home/index.php");
     }
+    
 }

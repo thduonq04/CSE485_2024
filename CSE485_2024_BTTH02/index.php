@@ -20,7 +20,7 @@ $action     = isset($_GET['action'])?       $_GET['action']:'index';
 $controller = ucfirst($controller);
 $controller .= 'Controller';
 $controllerPath = 'controllers/'.$controller.'.php';
-var_dump($controllerPath);
+// var_dump($controllerPath);
 // B3. Để gọi nó Controller
 if(!file_exists($controllerPath)){
     die('Lỗi! Controller này không tồn tại');

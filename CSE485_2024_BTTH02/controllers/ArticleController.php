@@ -1,15 +1,15 @@
 <?php
-include ('ArticleService.php');
+include ('services/ArticleService.php');
 
 class ArticleController{
     // Hàm xử lý hành động index
     public function index(){
         // Nhiệm vụ 1: Tương tác với Services/Models
-        echo "Tương tác với Services/Models from Article";
+        //echo "Tương tác với Services/Models from Article";
         $articleService = new ArticleService();
         $articles = $articleService->getAllArticles();
         // Nhiệm vụ 2: Tương tác với View
-        echo "Tương tác với View from Article";
+       // echo "Tương tác với View from Article";
         include ('views/home/index.php');
     }
 
@@ -25,5 +25,13 @@ class ArticleController{
         // echo "Tương tác với Services/Models from Article";
         // Nhiệm vụ 2: Tương tác với View
         include("views/article/list_article.php");
+    }
+
+    public function detailArticle   (){
+        $articleService = new ArticleService();
+        $id = $_GET['id'];
+        $article = $articleService->getArticleByID($id);
+        include('views/article/detail.php');
+
     }
 }
