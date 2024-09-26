@@ -15,7 +15,6 @@
         {
                 return $this->ma_tgia;
         }
-
         /**
          * Set the value of ma_tgia
          */
