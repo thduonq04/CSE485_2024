@@ -40,10 +40,10 @@ require_once 'views/layout/header_article.php';
                             <td ><?php echo $row->getNgayviet() ?></td>
                             <td ><?php echo $row->getHinhanh() ?></td>
                             <td>
-                                <a href="index.php?controller=author&action=displayUpdateArticle&id=<?php echo $row->getMaBviet() ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="index.php?controller=article&action=displayUpdateArticle&id=<?php echo $row->getMaBviet() ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                             </td>
                             <td>
-                                <a href="index.php?controller=author&action=displayDeleteArticle&id=<?php echo $row->getMaBviet()?>"><i class="fa-solid fa-trash"></i></a>
+                                <a href="index.php?controller=article&action=displayDeleteArticle&id=<?php echo $row->getMaBviet()?>"><i class="fa-solid fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

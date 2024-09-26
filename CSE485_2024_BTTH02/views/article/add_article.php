@@ -6,7 +6,7 @@ require_once 'views/layout/header_article.php';
         <div class="row">
             <div class="col-sm">
                 <h3 class="text-center text-uppercase fw-bold">Thêm mới bài viết</h3>
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="index.php?controller=article&action=addArticle" method="post" enctype="multipart/form-data">
 
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="tieude">Tiêu đề</span>
@@ -21,8 +21,9 @@ require_once 'views/layout/header_article.php';
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="ma_tloai">Thể loại</span>
                         <select class="form-control" id="ma_tloai" name="ma_tloai" required>
-                            <?php foreach ($theloai as $theloai): ?>
-                                <option value="<?= $theloai->ma_tloai ?>"><?= $theloai->ten_tloai ?></option>
+                            <?php foreach ($categorys as $theloai): 
+                            ?>
+                                <option value="<?= $theloai->getMaTloai() ?>"><?= $theloai->getTenTloai() ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -30,10 +31,11 @@ require_once 'views/layout/header_article.php';
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="ma_tgia">Tác giả</span>
                         <select class="form-control" id="ma_tgia" name="ma_tgia" required>
-                        <?php while($row = $tacgia->fetch_assoc()): ?>
-                            <option value="<?= $row['ma_tgia']; ?>"><?= $row['ten_tgia']; ?></option>
-                        <?php endwhile; ?>
-                    </select>
+                            <?php foreach ($authors as $tgia): 
+                            ?>
+                                <option value="<?= $tgia->getMaTgia() ?>"><?= $tgia->getTenTgia() ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     
                     <div class="input-group mt-3 mb-3">
@@ -48,12 +50,12 @@ require_once 'views/layout/header_article.php';
 
                     <div>
                         <span class="input-group-text" id="hinhanh">Hình ảnh</span> <br>
-                        <input type="file" class="custom-file-input" id="hinhanh" class="form-control-file border" name="hinhanh">
+                        <input type="text" class="form-control" name="hinhanh">
                     </div>
 
                     <div class="form-group  float-end ">
                         <input type="submit" value="Thêm" class="btn btn-success">
-                        <a href="index.php?controller=article&action=list" class="btn btn-warning ">Quay lại</a>
+                        <a href="index.php?controller=article&action=index" class="btn btn-warning ">Quay lại</a>
                     </div>
                 </form>
             </div>

@@ -49,14 +49,37 @@ class ArticleService{
             echo "<script>alert('Thêm thành công');</script>";
         }
     }
-
-    public function getAuthor(){
-
+    public function updateArticle($ma_bviet, $tieude, $ten_bhat, $ma_tloai, $tomtat, $noidung, $ma_tgia, $ngayviet, $hinhanh){
         $dbConn = new DBConnection();
         $conn = $dbConn->getConnection();
 
-        $sql_theloai = $conn->query("SELECT * FROM theloai");
-        $result_theloai = $conn->query($sql_theloai);
-        $result_theloai = $result_theloai->fetch();
+        $sql = "UPDATE baiviet
+                SET tieude = '$tieude', ten_bhat = '$ten_bhat', ma_tloai = '$ma_tloai',
+                    tomtat = '$tomtat', noidung = '$noidung', ma_tgia = '$ma_tgia', hinhanh='$hinhanh'
+                WHERE ma_bviet = $ma_bviet";
+
+            $stmt = $conn->query($sql);
+
+            if(!$stmt){
+                echo "<script>alert('Sửa thất bại');</script>";
+            }
+            else{
+                echo "<script>alert('Sửa thành công');</script>";
+            }            
+        }
+        public function deleteArticle($ma_bviet){
+            $dbConn = new DBConnection();
+            $conn = $dbConn->getConnection();
+    
+            $sql = "DELETE from baiviet where ma_bviet = ".$ma_bviet;
+            $stmt = $conn->query($sql);
+    
+            if(!$stmt){
+                echo "<script>alert('Xóa thất bại');</script>";
+            }
+            else{
+                echo "<script>alert('Xóa thành công');</script>";
+            }
+        }
+    
     }
-}

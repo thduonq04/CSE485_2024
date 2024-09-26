@@ -1,6 +1,6 @@
 <?php
-include("configs/DBConnection.php");
-include("models/Author.php");
+include_once("configs/DBConnection.php");
+include_once("models/Author.php");
 class AuthorService{
     public function getAllAuthors(){
         // 4 bước thực hiện
@@ -73,5 +73,16 @@ class AuthorService{
         else{
             echo "<script>alert('Xóa tác giả thành công');</script>";
         }
+    }
+    public function getIdByNameAuthor($authorName){
+        $dbConn = new DBConnection();
+       $conn = $dbConn->getConnection();
+
+       $sql = "SELECT ma_tgia from tacgia where tacgia.ten_tgia = '".$authorName."'";
+       $stmt = $conn->query($sql);
+
+       $row = $stmt->fetch();
+       $author = $row['ma_tgia'];
+       return $author;
     }
 }

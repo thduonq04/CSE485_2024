@@ -1,6 +1,6 @@
 <?php
-include("configs/DBConnection.php");
-include("models/Category.php");
+include_once("configs/DBConnection.php");
+include_once("models/Category.php");
 class CategoryService{
     public function getAllCategorys(){
         // 4 bước thực hiện
@@ -74,5 +74,17 @@ class CategoryService{
         else{
             echo "<script>alert('Xóa thể loại thành công');</script>";
         }
+    }
+
+    public function getIdByNameCategory($categoryName){
+        $dbConn = new DBConnection();
+        $conn = $dbConn->getConnection();
+
+       $sql = "SELECT ma_tloai from theloai where ten_tloai = '".$categoryName."'";
+       $stmt = $conn->query($sql);
+
+       $row = $stmt->fetch();
+       $author = $row['ma_tloai'];
+       return $author;
     }
 }
