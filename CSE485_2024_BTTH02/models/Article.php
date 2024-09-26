@@ -12,9 +12,7 @@ class Article{
     private $ngayviet;
     private $hinhanh;
 
-
-
-
+    
     public function __construct($ma_bviet, $tieude, $ten_bhat, $ma_tloai, $tomtat, $noidung, $ma_tgia, $ngayviet, $hinhanh){
             $this->ma_bviet = $ma_bviet;
             $this->tieude = $tieude;
