@@ -1,3 +1,24 @@
+<?php
+$controller = $_GET["controller"];
+$baiviet ="";
+$tacgia = "";
+$theloai = "";
+$trangchu = "";
+if ($controller === "article"){
+    $baiviet = "active fw-bold";
+}
+elseif ($controller === "author"){
+    $tacgia = "active fw-bold";
+}
+elseif ($controller === "category"){
+    $theloai = "active fw-bold";
+}
+else{
+    $trangchu = "active fw-bold";
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,19 +43,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="./index.php?controller=admin&action=index">Trang chủ</a>
+                        <a class="nav-link <?= $trangchu ?>" aria-current="page" href="./index.php?controller=admin&action=index">Trang chủ</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./">Trang ngoài</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active fw-bold" href="./index.php?controller=category&action=index">Thể loại</a>
+                        <a class="nav-link <?= $theloai ?> " href="./index.php?controller=category&action=index">Thể loại</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="./index.php?controller=author&action=index">Tác giả</a>
+                        <a class="nav-link <?= $tacgia ?>" href="./index.php?controller=author&action=index">Tác giả</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./index.php?controller=article&action=index">Bài viết</a>
+                        <a class="nav-link <?= $baiviet ?>" href="./index.php?controller=article&action=index">Bài viết</a>
                     </li>
                 </ul>
                 </div>

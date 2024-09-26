@@ -20,8 +20,8 @@ class UserController{
             //So sánh mật khẩu (đã được mã hóa)
             if($password==$user->getPassword()){
                 echo "<script>alert('Đăng nhập thành công')</script>";
-               // header("Location:admin"); //cái này phải đợi nhỏ tt làm xong mới cóa, thêm tạm nhé
-                header("Location: ./index.php?controller=category&action=index");
+                header("Location:./index.php?controller=admin&action=index"); //cái này phải đợi nhỏ tt làm xong mới cóa, thêm tạm nhé
+                //header("Location: ./index.php?controller=category&action=index");
 
             }
             else {

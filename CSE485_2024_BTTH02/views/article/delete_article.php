@@ -1,5 +1,5 @@
 <?php 
-    require_once('views/layout/header.php');
+    require_once('views/layout/header_admin.php');
 ?>
 <body>
         <h5 class="modal-title" id="exam" >Xác nhận xóa</h5>
