@@ -16,8 +16,6 @@ class AuthorController{
         $authorService = new AuthorService();
         if($_SERVER['REQUEST_METHOD']==='POST'){
             $ten_tgia = $_POST['ten_tgia'];
-            
-
         }
         $authors = $authorService->addAuthor($ten_tgia); 
         // echo "Tương tác với Services/Models from Article";
